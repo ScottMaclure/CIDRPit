@@ -43,13 +43,11 @@ const renderApp = () => {
     render(mainElement, html`
         <p>Hello 👋 µhtml</p>
         <nav class="tabs">
-            ${data.roots.map(
-                (root, i) => html`
-                    <a href="#!" class="${!!root.active ? 'active' : ''}" onclick=${(event) => setActiveRoot(event, root)}>
-                        (${root['pool_name']}) ${root['cidr']}
-                    </a>
-                `
-            )}
+            ${data.roots.map((root, i) => html`
+                <a href="#!" class="${!!root.active ? 'active' : ''}" onclick=${(event) => setActiveRoot(event, root)}>
+                    (${root['pool_name']}) ${root['cidr']}
+                </a>
+            `)}
         </nav>
     `)
 }
