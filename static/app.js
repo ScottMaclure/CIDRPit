@@ -15,7 +15,7 @@ const start = async (element) => {
     mainElement = element // set global for re-use on re-render.
     // Initial render
     data['roots'] = await getRoots()
-    renderApp()
+    return renderApp()
 }
 
 const getRoots = async () => {
@@ -40,15 +40,24 @@ const setActiveRoot = (event, selectedRoot) => {
 const renderApp = () => {
     // console.log('renderApp.data', JSON.stringify(data, null, 2))
     console.log('renderApp.data', data)
-    render(mainElement, html`
-        <p>Hello 👋 µhtml</p>
-        <nav class="tabs">
-            ${data.roots.map((root, i) => html`
-                <a href="#!" class="${!!root.active ? 'active' : ''}" onclick=${(event) => setActiveRoot(event, root)}>
-                    (${root.pool_name}) ${root.cidr}
-                </a>
-            `)}
-        </nav>
+    return render(mainElement, html`
+        <header>
+            <h1>CIDRPit</h1>
+            <p>TODO Header. Navbar? Move into uhtml?</p>
+        </header>
+        <div id="main">
+            <nav class="tabs">
+                ${data.roots.map((root, i) => html`
+                    <a href="#!" class="${!!root.active ? 'active' : ''}" onclick=${(event) => setActiveRoot(event, root)}>
+                        (${root.pool_name}) ${root.cidr}
+                    </a>
+                `)}
+            </nav>
+            <p>TODO Content</p>
+        </div>
+        <footer>
+            TODO Footer <i data-feather="thumbs-up"></i>
+        </footer>
     `)
 }
 

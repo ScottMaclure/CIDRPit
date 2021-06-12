@@ -22,17 +22,8 @@
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>CIDRPit</h1>
-            <p>TODO Header. Navbar? Move into uhtml?</p>
-        </header>
-        <div id="main">
-            <!-- TODO Dynamic Content -->
-        </div>
-        <footer>
-            TODO Footer <i data-feather="thumbs-up"></i>
-        </footer>
+    <div id="app" class="container">
+        Loading...
     </div>
     
     <script src="https://unpkg.com/feather-icons"></script>
@@ -41,7 +32,10 @@
 
         // AIIFE - see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/async_function
         (async () => {
-            app.start(document.getElementById('main'))
+            await app.start(document.getElementById('app'))
+            
+            // Icons
+            feather.replace() // TODO Need to move inside renderApp?
         })();
 
         // Dark mode for https://jenil.github.io/chota/
@@ -49,9 +43,6 @@
             window.matchMedia('(prefers-color-scheme: dark)').matches) {
           document.body.classList.add('dark');
         }
-
-        // Icons
-        feather.replace()
     </script>
     
 
