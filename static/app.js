@@ -55,7 +55,6 @@ const renderApp = () => {
 }
 
 // Export
-const app = {
+export default {
     start
 }
-export { app }
