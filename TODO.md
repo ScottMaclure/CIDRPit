@@ -21,4 +21,4 @@
 
 * [ ] Add uuids to every item
 * [ ] Add owner / team concept
-
+* [ ] Calculate first and last ip and convert to a number, and store - can use for FE sorting
