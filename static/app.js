@@ -1,5 +1,6 @@
 // uhtml setup. See https://github.com/WebReflection/uhtml
-import {render, html, svg} from 'https://unpkg.com/uhtml?module'
+// import {render, html} from 'https://unpkg.com/uhtml?module'
+let {render, html} = uhtml // From global
 
 // Contains the app - used for re-rendering.
 let mainElement = null
