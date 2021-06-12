@@ -25,11 +25,11 @@ const NavBar = (roots, activeRoot, selectFn) => html`
 
 const Reservations = (root, reservations) => {
     if (reservations.length === 0) {
-        return html`<p class="text-center">No reservations${root ? ` for ${root.pool_name} root` : ''}.</p>`
+        return html`<p class="text-center">No reservations${root ? ` for ${root.pool_name} pool` : ''}.</p>`
     }
     return html`
     <table class="striped">
-        <caption>${root ? `${root.pool_name} ` : ''}reservations</caption>
+        <caption>${root ? root.pool_name : 'All'} reservations</caption>
         <thead>
             <tr>
                 <th>CIDR</th>
