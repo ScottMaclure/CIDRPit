@@ -24,7 +24,9 @@ const getRoots = async () => {
 }
 
 // TODO How about we pass uuids back for all items in db, then I can use metadata in state for stuf like "active tab".
-const setActiveRoot = (selectedRoot) => {
+// TODO Deep-linking via hashbangs? Not needed?
+const setActiveRoot = (event, selectedRoot) => {
+    event.preventDefault() && event.stopImmediatePropagation()
     data.roots.forEach((root) => {
         root.active = root.cidr === selectedRoot.cidr ? true : false
     })
@@ -44,7 +46,7 @@ const renderApp = () => {
         <nav class="tabs">
             ${data.roots.map(
                 (root, i) => html`
-                    <a href="#!" class="${!!root.active ? 'active' : ''}" onclick=${() => setActiveRoot(root)}>
+                    <a href="#!" class="${!!root.active ? 'active' : ''}" onclick=${(event) => setActiveRoot(event, root)}>
                         (${root['pool_name']}) ${root['cidr']}
                     </a>
                 `
