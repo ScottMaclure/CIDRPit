@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- See https://favicon.io/emoji-favicons/ -->
+    <link rel="icon" type="image/icon" href="favicon.ico">
+    
     <title>CIDRPit</title>
+    
     <link rel="stylesheet" href="https://unpkg.com/chota@latest">
     <style>
         body.dark {
@@ -26,22 +30,30 @@
         <div id="main">
             <!-- TODO Dynamic Content -->
         </div>
-        <footer>TODO Footer</footer>
+        <footer>
+            TODO Footer <i data-feather="thumbs-up"></i>
+        </footer>
     </div>
     
+    <script src="https://unpkg.com/feather-icons"></script>
     <script type="module">
-        // uhtml setup. See https://github.com/WebReflection/uhtml
-        import {render, html, svg} from 'https://unpkg.com/uhtml?module';
+        import {app} from './app.js'
 
-        // TODO Write some App JS, import as ES Module, use fetch API, pass some data in, render, etc.
-        render(document.getElementById('main'), html`<p>Hello 👋 µhtml</p>`);
-        
+        // AIIFE - see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/async_function
+        (async () => {
+            app.start(document.getElementById('main'))
+        })();
+
         // Dark mode for https://jenil.github.io/chota/
         if (window.matchMedia &&
             window.matchMedia('(prefers-color-scheme: dark)').matches) {
           document.body.classList.add('dark');
         }
+
+        // Icons
+        feather.replace()
     </script>
+    
 
 </body>
 </html>
