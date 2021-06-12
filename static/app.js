@@ -1,14 +1,16 @@
 // uhtml setup. See https://github.com/WebReflection/uhtml
 // import {render, html} from 'https://unpkg.com/uhtml?module'
 let {render, html} = uhtml // From global
+import c from './components.js'
 
 // Contains the app - used for re-rendering.
 let mainElement = null
 
 // Global state
+// TODO Think about a data model that works for UI
 let data = {
     'roots': [],
-    'reservations': []
+    'reservations': [] // represents currently selected root's reservations
 }
 window.data = data // For browser console debuggging
 
@@ -24,52 +26,42 @@ const getRoots = async () => {
         .then(response => response.json())
 }
 
+// TODO You can get ALL via "/reservations/" - would be a useful UI - an "All" tab.
+const getReservations = async (root) => {
+    return fetch(`/reservations/${root.pool_name}`)
+        .then(response => response.json())
+}
+
 // TODO How about we pass uuids back for all items in db, then I can use metadata in state for stuf like "active tab".
 // TODO Deep-linking via hashbangs? Not needed?
-const setActiveRoot = (event, selectedRoot) => {
+const setRoot = async (event, root) => {
     event.preventDefault() && event.stopImmediatePropagation()
-    data.roots.forEach((root) => {
-        root.active = root.cidr === selectedRoot.cidr ? true : false
+    
+    data.roots.forEach((iterRoot) => {
+        iterRoot.active = iterRoot.cidr === root.cidr ? true : false
     })
+
+    data.reservations = await getReservations(root)
+
     renderApp() // TODO Reactivity on data with get/set?
 }
 
 /**
  * Top-down (re-)render.
- * Note that micro html takes care of only replacing elements which change, so calling renderApp is cheap.
+ * Note that micro-html takes care of only replacing elements which change, so calling renderApp is cheap.
  */
 const renderApp = () => {
     // console.log('renderApp.data', JSON.stringify(data, null, 2))
     console.log('renderApp.data', data)
     return render(mainElement, html`
-        ${Header()}
+        ${c.Header()}
         <div id="main">
-            <nav class="tabs">
-                ${data.roots.map((root, i) => html`
-                    <a href="#!" class="${!!root.active ? 'active' : ''}" onclick=${(event) => setActiveRoot(event, root)}>
-                        (${root.pool_name}) ${root.cidr}
-                    </a>
-                `)}
-            </nav>
-            <p>TODO Content</p>
+            ${c.NavBar(data.roots, setRoot)}
+            ${c.Reservations(data.roots.find(r => !!r.active), data.reservations)}
         </div>
-        ${Footer()}
+        ${c.Footer()}
     `)
 }
-
-// an essential Button component example
-const Header = () => html`
-    <header>
-        <h1>CIDRPit</h1>
-        <p>TODO Header. Navbar? Move into uhtml?</p>
-    </header>
-`
-
-const Footer = () => html`
-    <footer>
-        TODO Footer <i data-feather="thumbs-up"></i>
-    </footer>
-`
 
 // Export
 export default {

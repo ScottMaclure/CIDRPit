@@ -1,0 +1,18 @@
+# CIDRPit TODO
+
+## General
+
+* [ ] Add IaC for deployment into AWS, including architecture. Bitbucket Pipelines?
+* [ ] Implement Auth system
+
+## Frontend
+
+* [x] Setup baseline UI codebase and structure
+* [ ] Use uuids and metadata for stuff like "selected root", instead of adding to server data.
+* [ ] Add SPA routing for deep links
+* [ ] Implement "All" tab which pulls all reservations
+* [ ] Sort reservations by CIDR? Different sorting for "All" tab?
+
+## Backend
+
+* [ ] Add uuids to every item
