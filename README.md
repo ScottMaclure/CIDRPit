@@ -101,3 +101,11 @@ for root in main.list_roots():
 main.deallocate('10.0.112.0/24')
 main.delete_root('10.0.0.0/16')
 ```
+
+## Web SPA
+
+### Dependencies
+
+* https://github.com/WebReflection/uhtml
+* https://jenil.github.io/chota/
+* https://feathericons.com/
