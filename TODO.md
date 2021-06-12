@@ -8,11 +8,13 @@
 ## Frontend
 
 * [x] Setup baseline UI codebase and structure
+* [x] Implement "All" tab which pulls all reservations
+* [ ] Sort reservations by CIDR? Different sorting for "All" tab?
 * [ ] Use uuids and metadata for stuff like "selected root", instead of adding to server data.
 * [ ] Add SPA routing for deep links
-* [ ] Implement "All" tab which pulls all reservations
-* [ ] Sort reservations by CIDR? Different sorting for "All" tab?
 
-## Backend
+## Backend / API
 
 * [ ] Add uuids to every item
+* [ ] Add owner / team concept
+
