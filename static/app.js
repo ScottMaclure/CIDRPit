@@ -41,10 +41,7 @@ const renderApp = () => {
     // console.log('renderApp.data', JSON.stringify(data, null, 2))
     console.log('renderApp.data', data)
     return render(mainElement, html`
-        <header>
-            <h1>CIDRPit</h1>
-            <p>TODO Header. Navbar? Move into uhtml?</p>
-        </header>
+        ${Header()}
         <div id="main">
             <nav class="tabs">
                 ${data.roots.map((root, i) => html`
@@ -55,11 +52,23 @@ const renderApp = () => {
             </nav>
             <p>TODO Content</p>
         </div>
-        <footer>
-            TODO Footer <i data-feather="thumbs-up"></i>
-        </footer>
+        ${Footer()}
     `)
 }
+
+// an essential Button component example
+const Header = () => html`
+    <header>
+        <h1>CIDRPit</h1>
+        <p>TODO Header. Navbar? Move into uhtml?</p>
+    </header>
+`
+
+const Footer = () => html`
+    <footer>
+        TODO Footer <i data-feather="thumbs-up"></i>
+    </footer>
+`
 
 // Export
 export default {
