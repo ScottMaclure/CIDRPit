@@ -2,13 +2,11 @@ from flask import Flask, redirect, jsonify, request
 
 import main
 
-app = Flask('CIDRPit', static_url_path='/ui', static_folder='static')
+app = Flask('CIDRPit', static_url_path='/', static_folder='static')
 
-
-@app.route("/ui/")
+@app.route("/")
 def redirect_to_ui():
-    return redirect('/ui/index.html', 301)
-
+    return redirect('/index.html', 301)
 
 @app.route("/roots/")
 @app.route("/roots/<pool>")
