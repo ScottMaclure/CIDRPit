@@ -36,7 +36,6 @@ const setActiveRoot = (event, selectedRoot) => {
 /**
  * Top-down (re-)render.
  * Note that micro html takes care of only replacing elements which change, so calling renderApp is cheap.
- * @param {*} data 
  */
 const renderApp = () => {
     // console.log('renderApp.data', JSON.stringify(data, null, 2))
