@@ -109,3 +109,4 @@ main.delete_root('10.0.0.0/16')
 * https://github.com/WebReflection/uhtml
 * https://jenil.github.io/chota/
 * https://feathericons.com/
+* https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
