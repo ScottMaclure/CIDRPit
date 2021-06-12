@@ -11,16 +11,24 @@ let data = {
 }
 window.data = data // For browser console debuggging
 
-const getRoots = async () => {
-    return fetch('/roots')
-        .then(response => response.json())
-}
-
 const start = async (element) => {
     mainElement = element // set global for re-use on re-render.
     // Initial render
     data['roots'] = await getRoots()
     renderApp()
+}
+
+const getRoots = async () => {
+    return fetch('/roots')
+        .then(response => response.json())
+}
+
+// TODO How about we pass uuids back for all items in db, then I can use metadata in state for stuf like "active tab".
+const setActiveRoot = (selectedRoot) => {
+    data.roots.forEach((root) => {
+        root.active = root.cidr === selectedRoot.cidr ? true : false
+    })
+    renderApp() // TODO Reactivity on data with get/set?
 }
 
 /**
@@ -44,14 +52,6 @@ const renderApp = () => {
         </nav>
         <p>
     `)
-}
-
-// TODO How about we pass uuids back for all items in db, then I can use metadata in state for stuf like "active tab".
-const setActiveRoot = (selectedRoot) => {
-    data.roots.forEach((root) => {
-        root.active = root.cidr === selectedRoot.cidr ? true : false
-    })
-    renderApp() // TODO Reactivity on data with get/set?
 }
 
 // Export
