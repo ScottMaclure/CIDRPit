@@ -12,8 +12,9 @@ const Header = () => html`
     </header>
 `
 
-const NavBar = (roots, selectFn) => html`
+const NavBar = (roots, activeRoot, selectFn) => html`
     <nav class="tabs is-full">
+        <a href="#!" class="${activeRoot ? '' : 'active'}" onclick=${(event) => selectFn(event, null)}>All</a>
         ${roots.map((root, i) => html`
             <a href="#!" class="${!!root.active ? 'active' : ''}" onclick=${(event) => selectFn(event, root)}>
                 (${root.pool_name}) ${root.cidr}

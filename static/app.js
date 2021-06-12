@@ -17,28 +17,35 @@ window.data = data // For browser console debuggging
 const start = async (element) => {
     mainElement = element // set global for re-use on re-render.
     // Initial render
-    data['roots'] = await getRoots()
+    await Promise.all([
+        getRoots().then(roots => data['roots'] = roots),
+        getReservations().then(reservations => data['reservations'] = reservations)
+    ])
     return renderApp()
 }
 
 const getRoots = async () => {
-    return fetch('/roots')
+    return fetch('/roots/')
         .then(response => response.json())
 }
 
 // TODO You can get ALL via "/reservations/" - would be a useful UI - an "All" tab.
 const getReservations = async (root) => {
-    return fetch(`/reservations/${root.pool_name}`)
+    return fetch(`/reservations/${root ? root.pool_name : ''}`)
         .then(response => response.json())
+}
+
+const getActiveRoot = () => {
+    return data.roots.find(r => !!r.active)
 }
 
 // TODO How about we pass uuids back for all items in db, then I can use metadata in state for stuf like "active tab".
 // TODO Deep-linking via hashbangs? Not needed?
 const setRoot = async (event, root) => {
-    event.preventDefault() && event.stopImmediatePropagation()
+    event && event.preventDefault() && event.stopImmediatePropagation()
     
     data.roots.forEach((iterRoot) => {
-        iterRoot.active = iterRoot.cidr === root.cidr ? true : false
+        iterRoot.active = root && (iterRoot.cidr === root.cidr) ? true : false
     })
 
     data.reservations = await getReservations(root)
@@ -56,8 +63,8 @@ const renderApp = () => {
     return render(mainElement, html`
         ${c.Header()}
         <div id="main">
-            ${c.NavBar(data.roots, setRoot)}
-            ${c.Reservations(data.roots.find(r => !!r.active), data.reservations)}
+            ${c.NavBar(data.roots, getActiveRoot(), setRoot)}
+            ${c.Reservations(getActiveRoot(), data.reservations)}
         </div>
         ${c.Footer()}
     `)
