@@ -51,7 +51,6 @@ const renderApp = () => {
                 `
             )}
         </nav>
-        <p>
     `)
 }
 
