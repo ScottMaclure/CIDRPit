@@ -7,7 +7,7 @@ from pynamodb.connection import Connection
 from pynamodb.exceptions import DoesNotExist
 from model import CidrPitModel
 
-# logging.basicConfig(level='INFO')
+logging.basicConfig(level='INFO')
 
 connection = Connection()
 

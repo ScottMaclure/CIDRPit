@@ -12,17 +12,33 @@ A *reservation* is a CIDR that has been reserved.
 
 ## Setup
 
+### (Optional) Run DynamoDB Local
+
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html
+
+```bash
+java -Djava.library.path=/tmp/dynamodb-local/DynamoDBLocal_lib -jar /tmp/dynamodb-local/DynamoDBLocal.jar -sharedDb
+
+# Quick test
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+```
+
+### Setup CIDRPit
+
 (Currently only for local dev)
 
-```
+```bash
 pip install -r requirements.txt
-python setup.py
+export CIDRPIT_PYNAMODB_HOST="http://localhost:8000"  # If you want to use DynamoDB Local
+AWS_PROFILE=dummy python setup.py  # Use dummy creds for local, real creds for an aws account.
+AWS_PROFILE=mycreds AWS_REGION=ap-southeast-1 python setup.py  # Use real creds plus a region for AWS
 ```
 
 ## Running the API
 
-```
-flask run 
+```bash
+AWS_PROFILE=dummy flask run  # For local
+AWS_PROFILE=mycreds AWS_REGION=ap-southeast-1 flask run  # For AWS
 ```
 
 This is supposed to also run in Lambda using serverless-wsgi once the IaC is ready. See handler.py.
@@ -31,7 +47,7 @@ This is supposed to also run in Lambda using serverless-wsgi once the IaC is rea
 
 List roots and reservations, optionally by pool:
 
-```
+```bash
 curl http://localhost:5000/roots/
 curl http://localhost:5000/roots/dev
 curl http://localhost:5000/reservations/
@@ -40,31 +56,31 @@ curl http://localhost:5000/reservations/dev
 
 Create a root:
 
-```
+```bash
 curl -X POST http://localhost:5000/roots/dev -H 'Content-type: application/json' -d '{"cidr":"10.0.0.0/16"}'
 ```
 
 Create a reservation by prefix length:
 
-```
+```bash
 curl -X POST http://localhost:5000/reservations/dev -H 'Content-type: application/json' -d '{"prefix_length":28,"comment":"My nice reservation"}'
 ```
 
 Create a reservation by CIDR:
 
-```
+```bash
 curl -X POST http://localhost:5000/reservations/dev -H 'Content-type: application/json' -d '{"cidr":"10.0.24.0/24","comment":"My specific reservation"}'
 ```
 
 Delete a reservation:
 
-```
+```bash
 curl -X DELETE http://localhost:5000/reservations/dev/10.0.24.0/24 
 ```
 
 Delete a root (must be empty):
 
-```
+```bash
 curl -X DELETE http://localhost:5000/root/dev/10.0.0.0/16 
 ```
 
