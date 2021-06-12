@@ -9,6 +9,10 @@
 
 * [x] Setup baseline UI codebase and structure
 * [x] Implement "All" tab which pulls all reservations
+* [ ] Implement "Create Root"
+* [ ] Implement "Create Reservation"
+* [ ] Implement "Delete Reservation"
+* [ ] Implement "Delete Root"
 * [ ] Sort reservations by CIDR? Different sorting for "All" tab?
 * [ ] Use uuids and metadata for stuff like "selected root", instead of adding to server data.
 * [ ] Add SPA routing for deep links

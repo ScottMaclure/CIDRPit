@@ -41,8 +41,8 @@ const Reservations = (root, reservations) => {
         <tbody>
             ${reservations.map((r, i) => html`
                 <tr>
-                    <td>${r.pool_name}</td>
                     <td>${r.cidr}</td>
+                    <td>${r.pool_name}</td>
                     <td>${r.comment}</td>
                     <td>${r.created}</td>
                 </tr>
